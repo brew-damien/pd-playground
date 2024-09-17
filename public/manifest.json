@@ -1,6 +1,5 @@
 {
-  "homepage": "https://brew-damien.github.io/pd-playground/",
-  "short_name": "PD Playground",
+  "short_name": "React App",
   "name": "Create React App Sample",
   "icons": [
     {

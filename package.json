@@ -1,5 +1,6 @@
 {
   "name": "personal-dev",
+  "homepage": "https://brew-damien.github.io/pd-playground/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
