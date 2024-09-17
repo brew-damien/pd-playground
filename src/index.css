@@ -1,13 +1,257 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+  scroll-timeline: --page-scroll block;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Scroll Progress */
+
+@keyframes grow-progress {
+	from { transform: scaleX(0); }
+	to { transform: scaleX(1); }
 }
+
+#progress {
+  @apply fixed left-0 top-0 w-full h-4 bg-[#027d95] origin-left;
+	animation: grow-progress auto linear;
+	animation-timeline: --page-scroll;
+}
+
+/* Animated Cards */
+
+.service_grid .grid_icon {
+    @apply transition-all ease-in-out duration-200;
+}
+
+.service_grid:hover .grid_icon {
+    @apply lg:scale-[48px];
+}
+
+.services_button {
+    @apply transition-all ease-in-out duration-200;
+}
+
+  @media (prefers-reduced-motion) {
+    * {
+      transition-duration: 0ms !important;
+    }
+      html {
+          scroll-behavior: auto;
+      }
+      .service_grid .grid_icon {
+          @apply transition-none;
+      }
+        
+      .services_button {
+          @apply transition-none;
+      }
+  }
+
+
+:root {
+  --black: oklch(0% 0 0);
+  --white: oklch(100% 0 0);
+  --yellow: oklch(86.93% 0.1591 87.29);
+  --dark-grey: oklch(24.35% 0 0);
+  --light-grey: oklch(88.53% 0 0);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter;
+}
+
+/* Card flip */
+
+.flip-content {
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  transform-style: preserve-3d;
+}
+
+.flip:hover .flip-content,
+.flip:focus-within .flip-content {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion) {
+  .flip-content {
+    transition: none;
+  }
+  
+  .card-wrapper::before {
+    display: none;
+  }
+  
+  .card-wrapper:hover::before {
+    animation: none;
+    transition: none;
+  }
+}
+
+.flip-front,
+.flip-back {
+  backface-visibility: hidden;
+}
+
+.flip {
+  perspective: 600px;
+  box-shadow: 10px solid;
+}
+
+.flip-card {
+  background-color: var(--brand-color);
+}
+
+/* Card Flip Border animation */
+
+.card-wrapper {
+  @apply relative !overflow-hidden rounded-2xl;
+  position: relative;
+}
+
+.card-wrapper::before {
+  content: '';
+  background: conic-gradient(
+    rgba(244, 114, 182, 1) 0deg,
+    rgba(192, 132, 252, 1) 0deg,
+    transparent 80deg
+  );
+  @apply absolute left-[-25%] top-[-25%] h-[150%] w-[150%];
+  opacity: 0;
+}
+
+.card-content {
+  @apply absolute left-[2px] top-[2px] h-[calc(100%-4px)] w-[calc(100%-4px)] rounded-2xl;
+}
+
+.card-wrapper:hover::before {
+  opacity: 1;
+  animation: border-spin 7s linear infinite;
+  transition: opacity 1.5s;
+}
+
+@keyframes border-spin {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+
+/* Text clipping background animation */
+
+@media screen and (min-width: 1024px) {
+  .text-container {
+    @apply container;
+  }
+
+  .text-container h1{
+    @apply m-0 font-black text-black/0 bg-repeat bg-clip-text bg-[url("./images/doodle-yellow-black.png")];
+    animation: animate 20s ease-in-out infinite;
+  }
+
+    @keyframes animate {
+      0%, 100% {
+        background-position: left top;
+      }
+      25%{
+        background-position: left bottom;
+      }
+      50% {
+        background-position: right bottom;
+      }
+      75% {
+        background-position: right top;
+      }   
+  }
+
+  /* Parallax text clipping */
+
+  .parallax-bg {
+    @apply m-0 font-black text-black/0 bg-repeat bg-clip-text bg-cover bg-[url("./images/gradient.jpg")];
+  }
+
+}
+
+/* Bubbles background */
+.bubbles {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 20;
+}
+
+.bubble {
+  position: absolute;
+  left: var(--bubble-left-offset);
+  bottom: -25%; /* Start slightly below the component */
+  width: var(--bubble-radius);
+  height: var(--bubble-radius);
+  border-radius: 50%;
+  animation: float-up var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;
+  z-index: -1;
+}
+
+.bubble::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsla(183, 94%, 76%, 0.2);
+  border-radius: inherit;
+  animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;
+}
+
+.bubble.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s ease-out;
+}
+
+@keyframes float-up {
+  to {
+      transform: translateY(-85vh);
+  }
+}
+
+@keyframes sway-left-to-right {
+  from {
+      transform: translateX(-100%);
+  }
+  to {
+      transform: translateX(100%);
+  }
+}
+
+@keyframes sway-right-to-left {
+  from {
+      transform: translateX(100%);
+  }
+  to {
+      transform: translateX(-100%);
+  }
+}
+
+
+/* Card */
+
+.border-gradient::before {    background: linear-gradient(to top, var(--dark-grey), var(--light-grey)) border-box;
+  mask: linear-gradient(var(--white) 0 0) padding-box, linear-gradient(var(--white) 0 0);
+  mask-composite: exclude;
+}
+
+/* Portfolio */
