@@ -12,7 +12,6 @@ import watermark_ln_f35 from '../images/watermark_photos/watermark_ln_f35.jpg';
 import watermark_sk_c130 from '../images/watermark_photos/watermark_sk_c130.jpg';
 import watermark_rc135u from '../images/watermark_photos/watermark_rc135u.jpg';
 
-
 const Card = () => {
     const [exifData, setExifData] = useState({});
     const [showExif, setShowExif] = useState({});
