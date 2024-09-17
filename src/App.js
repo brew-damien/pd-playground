@@ -11,7 +11,6 @@ import Portfolio from './components/Portfolio';
 function App() {
   return (
     <Router>
-      <div>
         <Routes>
           <Route path="/" element={
             <>
@@ -25,7 +24,6 @@ function App() {
             </>
           } />
         </Routes>
-      </div>
     </Router>
   );
 }
