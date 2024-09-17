@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // Use HashRouter instead of BrowserRouter
 import Hero from './components/Hero';
 import Card from './components/Card';
 import CardFlip from './components/CardFlip';
@@ -11,19 +11,19 @@ import Portfolio from './components/Portfolio';
 function App() {
   return (
     <Router>
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Navbar label="Log in" />
-              <Hero />
-              <About label1="About Me" label2="Contact" />
-              <CardFlip />
-              <Card />
-              <AnimatedCard />
-              <Portfolio />
-            </>
-          } />
-        </Routes>
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Navbar label="Log in" />
+            <Hero />
+            <About label1="About Me" label2="Contact" />
+            <CardFlip />
+            <Card />
+            <AnimatedCard />
+            <Portfolio />
+          </>
+        } />
+      </Routes>
     </Router>
   );
 }
