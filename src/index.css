@@ -255,3 +255,9 @@ body {
 }
 
 /* Portfolio */
+
+/* styles.css or global.css */
+.border-gradient {
+  border-image: linear-gradient(to right, #515BD4, #8134AF, #DD2A7B, #FEDA77, #F58529);
+  border-image-slice: 1;
+}

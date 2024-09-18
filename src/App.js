@@ -1,5 +1,5 @@
 import './App.css';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // Use HashRouter instead of BrowserRouter
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Hero from './components/Hero';
 import Card from './components/Card';
 import CardFlip from './components/CardFlip';
