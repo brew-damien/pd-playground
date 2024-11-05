@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Bubbles from './Bubbles';
-import Button from './Button';
+import Button from '../components/Button';
 
 const About = ({ label1, label2 }) => {
     return (
@@ -38,7 +38,6 @@ const About = ({ label1, label2 }) => {
     );
 }
 
-// Prop types for About component
 About.propTypes = {
     label1: PropTypes.string,
     label2: PropTypes.string,

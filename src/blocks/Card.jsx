@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import EXIF from 'exif-js';
-import { Link } from 'react-router-dom';
 import danish_f16 from '../images/photos/danish_f16.jpg';
 import turkish_f16 from '../images/photos/turkish_f16.jpg';
 import sk_c130 from '../images/photos/sk_c130.jpg';
@@ -13,7 +11,6 @@ import watermark_sk_c130 from '../images/watermark_photos/watermark_sk_c130.jpg'
 import watermark_rc135u from '../images/watermark_photos/watermark_rc135u.jpg';
 
 const Card = () => {
-    const [exifData, setExifData] = useState({});
     const [showExif, setShowExif] = useState({});
     const [lightboxImage, setLightboxImage] = useState(null);
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -22,7 +19,6 @@ const Card = () => {
 
     useEffect(() => {
         document.documentElement.classList.toggle('overflow-hidden', isLightboxOpen);
-
         const handleKeyDown = (event) => {
             if (event.key === 'Escape') {
                 closeLightbox();
@@ -94,32 +90,22 @@ const Card = () => {
             aperture: 'f8.0',
             iso: '100',
             shutterSpeed: '1/125',
-            focalLength: '400mm',
+            focalLength: '320mm',
         },
         {
             title: 'RAF Mildenhall, Suffolk',
             paragraphs: [
                 "Body: Canon 7D MK2",
-                "Lens: Canon EF 100-400mm f4.5-5.6",
+                "Lens: Canon EF 100-300mm f4.5-5.6",
             ],
             image: rc135,
             watermarkImage: watermark_rc135u,
             aperture: 'f8.0',
             iso: '100',
             shutterSpeed: '1/125',
-            focalLength: '400mm',
+            focalLength: '212mm',
         },
     ];
-
-    const handleImageLoad = (image) => {
-        EXIF.getData(image, function () {
-            const allExifData = EXIF.getAllTags(this);
-            setExifData((prevData) => ({
-                ...prevData,
-                [image.src]: allExifData,
-            }));
-        });
-    };
 
     const handleToggleExif = (imageSrc) => {
         setShowExif((prevShowExif) => ({
@@ -194,9 +180,9 @@ const Card = () => {
                                     className="duration-300 transform origin-center group-hover/card:scale-105 cursor-pointer"
                                     src={card.image}
                                     alt={`Detailed view of ${card.title}`}
-                                    onClick={() => openLightbox(card.image)}
-                                    onLoad={(e) => handleImageLoad(e.target)}
+                                    onClick={() => openLightbox(card.watermarkImage)}
                                 />
+
                                 <div
                                     className={`absolute inset-0 bg-black bg-opacity-70 p-4 z-10 transform transition-transform duration-500 ease-in-out ${isExifVisible ? 'translate-x-0' : '-translate-x-full'
                                         }`}
@@ -273,8 +259,8 @@ const Card = () => {
                                 </g>
                             </svg>
                         </button>
-                        <Link
-                            to={`${encodeURIComponent(lightboxImage)}`}
+                        <a
+                            href={lightboxImage}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-gray-400 hover:text-gray-200 hover:underline focus:text-gray-200 focus:underline absolute bottom-0 left-0 px-3 py-2 bg-black/50 rounded-tr-lg"
@@ -282,7 +268,7 @@ const Card = () => {
                         >
                             Open in new tab
                             <span className="sr-only">(opens in a new tab)</span>
-                        </Link>
+                        </a>
                     </div>
                 </div>
             )}

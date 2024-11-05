@@ -43,7 +43,7 @@ const ServiceGrid = () => {
                         </div>
                         <div>
                             <p className="leading-snug font-normal text-[15px] lg:group-hover:mb-4 lg:group-focus-within:mb-4 transition-all duration-200 motion-reduce:transition-none gap-b-2">
-                                Gain insights from your data with our analytics tools.
+                                Gain insights from your data with our analytics tools. Gain insights from your data with our analytics tools.
                             </p>
                             <div className="mt-6 justify-center w-full lg:opacity-0 h-max lg:max-h-0 lg:group-hover:max-h-[50px] lg:group-hover:opacity-100 lg:group-focus-within:max-h-[50px] lg:group-focus-within:opacity-100 transition-all duration-200 ease-in-out lg:services_button motion-reduce:transition-none motion-reduce:hover:transform-none">
                                 <button

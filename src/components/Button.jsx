@@ -24,7 +24,7 @@ const Button = ({ type = 'button', label, icon, variant = '', full = false, href
         </>
     );
 
-    if (href != null && href !== '') {
+    if (href != null || href !== '') {
         return (
             <Link
                 to={href}
@@ -47,7 +47,6 @@ const Button = ({ type = 'button', label, icon, variant = '', full = false, href
     );
 };
 
-// Type checking with PropTypes
 Button.propTypes = {
     type: PropTypes.oneOf(['button', 'submit']),
     label: PropTypes.string.isRequired,

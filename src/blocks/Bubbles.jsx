@@ -3,19 +3,22 @@ import { v4 as uuidv4 } from 'uuid';
 
 const Bubbles = () => {
     const bubbleCount = 50;
-    const swayTypes = ["sway-left-to-right", "sway-right-to-left"];
 
-    const createBubble = useCallback(() => ({
-        id: uuidv4(),
-        leftOffset: `${Math.floor(Math.random() * 100)}%`,
-        radius: `${Math.floor(Math.random() * 10) + 1}vw`,
-        floatDuration: `${Math.floor(Math.random() * 6) + 6}s`,
-        swayDuration: `${Math.floor(Math.random() * 2) + 4}s`,
-        floatDelay: `${Math.floor(Math.random() * 4)}s`,
-        swayDelay: `${Math.floor(Math.random() * 4)}s`,
-        swayType: swayTypes[Math.floor(Math.random() * 2)],
-        isVisible: true
-    }), []);
+    const createBubble = useCallback(() => {
+        const swayTypes = ["sway-left-to-right", "sway-right-to-left"];
+
+        return {
+            id: uuidv4(),
+            leftOffset: `${Math.floor(Math.random() * 100)}%`,
+            radius: `${Math.floor(Math.random() * 10) + 1}vw`,
+            floatDuration: `${Math.floor(Math.random() * 6) + 6}s`,
+            swayDuration: `${Math.floor(Math.random() * 2) + 4}s`,
+            floatDelay: `${Math.floor(Math.random() * 4)}s`,
+            swayDelay: `${Math.floor(Math.random() * 4)}s`,
+            swayType: swayTypes[Math.floor(Math.random() * 2)],
+            isVisible: true
+        };
+    }, []);
 
     const [bubbles, setBubbles] = useState(() =>
         Array.from({ length: bubbleCount }, createBubble)

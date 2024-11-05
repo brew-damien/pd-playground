@@ -4,14 +4,45 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prefers reduced motion */
 
-html {
-  font-family: 'Inter', sans-serif;
-  scroll-behavior: smooth;
-  scroll-timeline: --page-scroll block;
+@media (prefers-reduced-motion) {
+  * {
+    @apply duration-0 !important;
+  }
+
+  html {
+    @apply scroll-auto;
+  }
+
+  .service_grid .grid_icon {
+    @apply transition-none;
+  }
+    
+  .services_button {
+    @apply transition-none;
+  }
+
+  .flip-content {
+    @apply transition-none;
+  }
+  
+  .card-wrapper::before {
+    @apply hidden;
+  }
+  
+  .card-wrapper:hover::before {
+    @apply animate-none transition-none;
+  }
 }
 
 /* Scroll Progress */
+
+html {
+  @apply scroll-smooth;
+  font-family: 'Inter', sans-serif;
+  scroll-timeline: --page-scroll block;
+}
 
 @keyframes grow-progress {
 	from { transform: scaleX(0); }
@@ -19,206 +50,60 @@ html {
 }
 
 #progress {
-  @apply fixed left-0 top-0 w-full h-4 bg-[#027d95] origin-left;
+  @apply fixed left-0 top-0 w-full h-4 bg-gradient-to-r from-[#027d95] to-blue-500 origin-left;
 	animation: grow-progress auto linear;
 	animation-timeline: --page-scroll;
 }
 
-/* Animated Cards */
-
-.service_grid .grid_icon {
-    @apply transition-all ease-in-out duration-200;
-}
-
-.service_grid:hover .grid_icon {
-    @apply lg:scale-[48px];
-}
-
-.services_button {
-    @apply transition-all ease-in-out duration-200;
-}
-
-  @media (prefers-reduced-motion) {
-    * {
-      transition-duration: 0ms !important;
-    }
-      html {
-          scroll-behavior: auto;
-      }
-      .service_grid .grid_icon {
-          @apply transition-none;
-      }
-        
-      .services_button {
-          @apply transition-none;
-      }
-  }
-
-
-:root {
-  --black: oklch(0% 0 0);
-  --white: oklch(100% 0 0);
-  --yellow: oklch(86.93% 0.1591 87.29);
-  --dark-grey: oklch(24.35% 0 0);
-  --light-grey: oklch(88.53% 0 0);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Inter;
-}
-
-/* Card flip */
-
-.flip-content {
-  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-  transform-style: preserve-3d;
-}
-
-.flip:hover .flip-content,
-.flip:focus-within .flip-content {
-  transform: rotateY(180deg);
-}
-
-@media (prefers-reduced-motion) {
-  .flip-content {
-    transition: none;
-  }
-  
-  .card-wrapper::before {
-    display: none;
-  }
-  
-  .card-wrapper:hover::before {
-    animation: none;
-    transition: none;
-  }
-}
-
-.flip-front,
-.flip-back {
-  backface-visibility: hidden;
-}
-
-.flip {
-  perspective: 600px;
-  box-shadow: 10px solid;
-}
-
-.flip-card {
-  background-color: var(--brand-color);
-}
-
-/* Card Flip Border animation */
-
-.card-wrapper {
-  @apply relative !overflow-hidden rounded-2xl;
-  position: relative;
-}
-
-.card-wrapper::before {
-  content: '';
-  background: conic-gradient(
-    rgba(244, 114, 182, 1) 0deg,
-    rgba(192, 132, 252, 1) 0deg,
-    transparent 80deg
-  );
-  @apply absolute left-[-25%] top-[-25%] h-[150%] w-[150%];
-  opacity: 0;
-}
-
-.card-content {
-  @apply absolute left-[2px] top-[2px] h-[calc(100%-4px)] w-[calc(100%-4px)] rounded-2xl;
-}
-
-.card-wrapper:hover::before {
-  opacity: 1;
-  animation: border-spin 7s linear infinite;
-  transition: opacity 1.5s;
-}
-
-@keyframes border-spin {
-  100% {
-    transform: rotate(-360deg);
-  }
-}
-
-
 /* Text clipping background animation */
 
 @media screen and (min-width: 1024px) {
-  .text-container {
-    @apply container;
-  }
-
-  .text-container h1{
-    @apply m-0 font-black text-black/0 bg-repeat bg-clip-text bg-[url("./images/doodle-yellow-black.png")];
+  .text-animation {
     animation: animate 20s ease-in-out infinite;
   }
 
-    @keyframes animate {
-      0%, 100% {
-        background-position: left top;
-      }
-      25%{
-        background-position: left bottom;
-      }
-      50% {
-        background-position: right bottom;
-      }
-      75% {
-        background-position: right top;
-      }   
+  @keyframes animate {
+    0%, 100% {
+      background-position: left top;
+    }
+    25%{
+      background-position: left bottom;
+    }
+    50% {
+      background-position: right bottom;
+    }
+    75% {
+      background-position: right top;
+    }
   }
+}
 
-  /* Parallax text clipping */
-
-  .parallax-bg {
-    @apply m-0 font-black text-black/0 bg-repeat bg-clip-text bg-cover bg-[url("./images/gradient.jpg")];
-  }
-
+.parallax-bg {
+  @apply m-0 font-black text-black/0 bg-repeat bg-clip-text bg-cover bg-[url("./images/gradient-2.jpg")];
 }
 
 /* Bubbles background */
+
 .bubbles {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 20;
+  @apply relative w-full h-full overflow-hidden z-20;
 }
 
 .bubble {
-  position: absolute;
+  @apply absolute -bottom-1/3 z-[-1];
   left: var(--bubble-left-offset);
-  bottom: -25%; /* Start slightly below the component */
   width: var(--bubble-radius);
   height: var(--bubble-radius);
-  border-radius: 50%;
   animation: float-up var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;
-  z-index: -1;
 }
 
 .bubble::before {
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  @apply absolute content-[''] top-0 left-0 w-full h-full rounded-full;
   background: hsla(183, 94%, 76%, 0.2);
-  border-radius: inherit;
   animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;
 }
 
 .bubble.hidden {
-  opacity: 0;
-  pointer-events: none;
+  @apply opacity-0 pointer-events-none;
   transition: opacity 0.1s ease-out;
 }
 
@@ -246,18 +131,264 @@ body {
   }
 }
 
+/* Animated Cards */
 
-/* Card */
+.service_grid .grid_icon {
+    @apply transition-all ease-in-out duration-200;
+}
 
-.border-gradient::before {    background: linear-gradient(to top, var(--dark-grey), var(--light-grey)) border-box;
-  mask: linear-gradient(var(--white) 0 0) padding-box, linear-gradient(var(--white) 0 0);
-  mask-composite: exclude;
+.service_grid:hover .grid_icon {
+    @apply lg:scale-[48px];
+}
+
+.services_button {
+    @apply transition-all ease-in-out duration-200;
+}
+
+:root {
+  --black: oklch(0% 0 0);
+  --white: oklch(100% 0 0);
+  --yellow: oklch(86.93% 0.1591 87.29);
+  --dark-grey: oklch(24.35% 0 0);
+  --light-grey: oklch(88.53% 0 0);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Card flip */
+
+.flip-content {
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  transform-style: preserve-3d;
+}
+
+.flip:hover .flip-content,
+.flip:focus-within .flip-content {
+  transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+  backface-visibility: hidden;
+}
+
+.flip-card {
+  background-color: var(--brand-color);
+}
+
+/* Card Flip Border animation */
+
+.card-wrapper {
+  @apply relative !overflow-hidden rounded-2xl;
+}
+
+.card-wrapper::before {
+  background: conic-gradient(
+    rgba(244, 114, 182, 1) 0deg,
+    rgba(192, 132, 252, 1) 0deg,
+    transparent 80deg
+  );
+  @apply absolute left-[-25%] top-[-25%] h-[150%] w-[150%] opacity-0 content-[''];
+}
+
+.card-content {
+  @apply absolute left-[2px] top-[2px] h-[calc(100%-4px)] w-[calc(100%-4px)] rounded-2xl;
+}
+
+.card-wrapper:hover::before {
+  @apply opacity-100;
+  animation: border-spin 7s linear infinite;
+  transition: opacity 1.5s;
+}
+
+@keyframes border-spin {
+  100% {
+      transform: rotate(-360deg);
+  }
 }
 
 /* Portfolio */
 
-/* styles.css or global.css */
-.border-gradient {
-  border-image: linear-gradient(to right, #515BD4, #8134AF, #DD2A7B, #FEDA77, #F58529);
-  border-image-slice: 1;
+.instagram-logo {
+  @apply relative overflow-hidden;
+  background: linear-gradient(145deg, #515BD4 10%, #DD2A7B 70%) no-repeat;
+}
+
+.instagram-logo:before {
+  @apply absolute top-0 left-0 right-0 bottom-0 content-[''];
+  background: radial-gradient(circle farthest-corner at 28% 100%,
+      #FCDF8F 0%,
+      #FBD377 10%,
+      #FA8E37 22%,
+      #ff5555 35%,
+      rgba(247, 51, 68, 0%) 65%) no-repeat;
+}
+
+/*  Hits */
+
+.ais-Hits-list {
+  @apply grid grid-cols-3 gap-8;
+}
+
+/* Search Box */
+
+.ais-SearchBox {
+  @apply w-max border rounded-xl;
+}
+
+.ais-SearchBox-input {
+@apply bg-red-500/0;
+}
+
+.ais-SearchBox-submit {
+  @apply bg-red-500/0;
+}
+
+/* Instagram posts */
+
+.ais-Pagination {
+  @apply mx-auto w-max text-xl;
+}
+
+.ais-Pagination-list {
+  @apply mx-auto inline-flex gap-4;
+}
+
+.ais-Pagination-item {
+  @apply border border-gray-500  bg-[#027d95] w-[50px] h-[50px] flex items-center justify-center rounded-xl;
+}
+
+.ais-Pagination-link {
+  @apply w-full h-full flex items-center justify-center;
+}
+
+.ais-Pagination-item--disabled {
+  @apply bg-gray-500;
+}
+
+.ais-Pagination-item--selected {
+  @apply bg-gradient-to-r from-[#027d95] to-purple-500/50 bg-[length:200%] bg-[position:0%_0%] transition-[background-position] duration-500 ease-in-out hover:bg-[position:100%];
+}
+
+/* Form */
+
+@keyframes pulse {
+  0% {
+      opacity: 1;
+  }
+  50% {
+      opacity: 0.5;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+.blob {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  animation: pulse infinite;
+  will-change: opacity;
+}
+
+.lava-lamp {
+  background-size: 100% 100%;
+  background-position: 0px 0px;
+  background-image: linear-gradient(125deg, #1E293BFF 1%, #0F172A 100%);
+}
+
+.blob1 {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  background-image: radial-gradient(12% 20% at 24% 50%, rgba(255, 90, 95, 0.5) 7%, rgba(30, 41, 59, 0) 100%)
+}
+
+.blob2 {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  background-image: radial-gradient(12% 20% at 18% 71%, rgba(255, 138, 0, 0.5) 6%, rgba(30, 41, 59, 0) 100%)
+}
+
+.blob3 {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  background-image: radial-gradient(50% 40% at 36% 76%, rgba(255, 205, 60, 0.5) 0%, rgba(30, 41, 59, 0) 100%)
+}
+
+.blob4 {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  background-image: radial-gradient(30% 35% at 15% 94%, rgba(255, 90, 95, 0.5) 7%, rgba(30, 41, 59, 0) 100%)
+}
+
+.blob5 {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  background-image: radial-gradient(30% 35% at 34% 72%, rgba(193, 53, 132, 0.5) 7%, rgba(30, 41, 59, 0) 100%)
+}
+
+.blob6 {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  background-image: radial-gradient(12% 20% at 35% 87%, rgba(64, 93, 230, 0.5) 7%, rgba(30, 41, 59, 0) 100%)
+}
+
+.blob7 {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  background-image: radial-gradient(25% 30% at 7% 98%, rgba(253, 29, 29, 0.5) 24%, rgba(30, 41, 59, 0) 100%)
+}
+
+.blob8 {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  background-image: radial-gradient(20% 30% at 72% 23%, rgba(247, 119, 55, 0.5) 24%, rgba(30, 41, 59, 0) 100%)
+}
+
+.blob9 {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  background-image: radial-gradient(30% 40% at 91% 74%, rgba(193, 53, 132, 0.5) 9%, rgba(30, 41, 59, 0) 100%)
+}
+
+.blob10 {
+  background-size: 20px 20px;
+  background-position: 0px 0px, 0px 0px;
+  background-image: radial-gradient(50% 55% at 67% 38%, rgba(245, 96, 64, 0.5) 24%, rgba(30, 41, 59, 0) 100%)
+}
+
+/* Grid columns scroll animation */
+
+.columns {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+  overflow-y: hidden;
+  gap: 48px;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+  gap: 48px;
+}
+
+.column-reverse {
+	transform: translateY(calc(-100% + 100vh));
+  flex-direction: column-reverse;
+  animation: adjust-position linear forwards;
+	animation-timeline: scroll(root block);
+}
+
+@keyframes adjust-position {
+	from {
+		transform: translateY(calc(-100% + 100vh));
+	}
+
+	to {
+		transform: translateY(calc(100% - 100vh));
+	}
 }

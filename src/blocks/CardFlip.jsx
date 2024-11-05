@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './Button';
+import Button from '../components/Button';
 import Brew from '../images/brew.png';
 import DavidVitas from '../images/davidvitas.png';
 import Spotify from '../images/spotify.png';

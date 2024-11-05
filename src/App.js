@@ -1,12 +1,9 @@
 import './App.css';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import Hero from './components/Hero';
-import Card from './components/Card';
-import CardFlip from './components/CardFlip';
-import AnimatedCard from './components/AnimatedCard';
-import Navbar from './components/Navbar';
-import About from './components/About';
-import Portfolio from './components/Portfolio';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home.jsx';
+import About from './pages/About.jsx';
+import Portfolio from './pages/Portfolio.jsx';
+import Contact from './pages/Contact.jsx';
 
 function App() {
   return (
@@ -14,13 +11,22 @@ function App() {
       <Routes>
         <Route path="/" element={
           <>
-            <Navbar label="Log in" />
-            <Hero />
-            <About label1="About Me" label2="Contact" />
-            <CardFlip />
-            <Card />
-            <AnimatedCard />
+            <Home />
+          </>
+        } />
+        <Route path="/about" element={
+          <>
+            <About />
+          </>
+        } />
+        <Route path="/portfolio" element={
+          <>
             <Portfolio />
+          </>
+        } />
+        <Route path="/contact" element={
+          <>
+            <Contact />
           </>
         } />
       </Routes>
